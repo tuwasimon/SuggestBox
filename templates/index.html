@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center mt-4">
+    <!-- Add this logo section -->
+    <img src="{{ url_for('static', filename='logo.jpg') }}" 
+         alt="Suggestion Box Logo" 
+         class="img-fluid mb-3" 
+         style="max-height: 120px;">
+    
+    <h2 class="fw-bold">Suggestion Box</h2>
+    <p class="text-muted">Share your thoughts anonymously</p>
+</div>
+
+<div class="d-grid gap-3 mt-5">
+    <a href="{{ url_for('submit') }}" class="btn btn-primary btn-lg py-3">
+        <i class="fas fa-plus-circle me-2"></i> New Suggestion
+    </a>
+    
+    {% if not current_user.is_authenticated %}
+    <a href="{{ url_for('admin_login') }}" class="btn btn-outline-secondary py-3">
+        <i class="fas fa-lock me-2"></i> Admin Login
+    </a>
+    {% endif %}
+</div>
+
+<div class="card mt-5">
+    <div class="card-body">
+        <h5 class="card-title"><i class="fas fa-info-circle text-primary me-2"></i>How it works</h5>
+        <ol class="ps-3">
+            <li class="mb-2">Tap "New Suggestion"</li>
+            <li class="mb-2">Type your message</li>
+            <li class="mb-2">Submit anonymously</li>
+            <li>Only admin can view suggestions</li>
+        </ol>
+    </div>
+</div>
+{% endblock %}

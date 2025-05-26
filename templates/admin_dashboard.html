@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="h3">Admin Dashboard</h1>
+            <p class="text-muted">Manage your application efficiently</p>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="row mb-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Suggestions</h5>
+                    <p class="h4 text-primary">{{ suggestions|length }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Today's Suggestions</h5>
+                    <p class="h4 text-success">{{ today_count }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions Section -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <a href="{{ url_for('admin_list') }}" class="btn btn-secondary w-100 mb-2">
+                        <i class="fas fa-users me-2"></i> Manage Admins
+                    </a>
+                    <a href="{{ url_for('create_admin') }}" class="btn btn-success w-100">
+                        <i class="fas fa-user-plus me-2"></i> Create Admin
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <a href="{{ url_for('reset_password') }}" class="btn btn-warning w-100 mb-2">
+                        <i class="fas fa-key me-2"></i> Reset Password
+                    </a>
+                    <a href="{{ url_for('admin_logout') }}" class="btn btn-danger w-100">
+                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Suggestions Section -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">All Suggestions</h5>
+                    {% if suggestions %}
+                    <div class="list-group">
+                        {% for suggestion in suggestions %}
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="mb-1">{{ suggestion.message }}</p>
+                                    {% if suggestion.name or suggestion.phone %}
+                                    <div class="mt-2">
+                                        {% if suggestion.name %}
+                                            <span class="badge bg-info me-2">
+                                                <i class="fas fa-user me-1"></i> {{ suggestion.name }}
+                                            </span>
+                                        {% endif %}
+                                        {% if suggestion.phone %}
+                                            <span class="badge bg-info">
+                                                <i class="fas fa-phone me-1"></i> {{ suggestion.phone }}
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <small class="text-muted">{{ suggestion.timestamp.strftime('%b %d, %H:%M') }}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i> No suggestions yet.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

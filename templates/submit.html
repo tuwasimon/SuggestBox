@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">New Suggestion</h2>
+    <a href="{{ url_for('index') }}" class="btn btn-sm btn-outline-secondary">
+        <i class="fas fa-times"></i>
+    </a>
+</div>
+
+<form method="POST">
+    <div class="mb-3">
+        <label for="message" class="form-label">Your suggestion*</label>
+        <textarea class="form-control" id="message" name="message" rows="6" required
+                  placeholder="Type your suggestion here..."></textarea>
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="name" class="form-label">Name (optional)</label>
+            <input type="text" class="form-control" id="name" name="name"
+                   placeholder="Your name (if you want to share)">
+        </div>
+        <div class="col-md-6">
+            <label for="phone" class="form-label">Phone (optional)</label>
+            <input type="tel" class="form-control" id="phone" name="phone"
+                   placeholder="Your phone number (if you want to share)">
+        </div>
+    </div>
+    
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-lg py-3">
+            <i class="far fa-paper-plane me-2"></i> Submit
+        </button>
+    </div>
+    
+    <div class="mt-3 text-muted small">
+        <i class="fas fa-info-circle me-1"></i> 
+        All submissions are confidential. Personal details are optional.
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Admin Accounts</h2>
+    
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Created By</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for admin in admins %}
+                <tr>
+                    <td>{{ admin.username }}</td>
+                    <td>
+                        {% if admin.is_superadmin %}
+                            <span class="badge bg-danger">Superadmin</span>
+                        {% else %}
+                            <span class="badge bg-primary">Admin</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ admin.created_by }}</td>
+                    <td>
+                        <form action="{{ url_for('remove_admin', admin_id=admin.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
